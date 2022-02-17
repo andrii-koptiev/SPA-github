@@ -1,27 +1,23 @@
 import React from 'react';
 import './App.scss';
+import { Pages } from './components/Pages';
+import { ReposList } from './components/ReposList';
+import { SearchBar } from './components/SearchBar';
 
-interface Props {
-  onClick: () => void;
-}
-
-export const Provider: React.FC<Props> = React.memo(
-  ({ onClick, children }) => (
-    <button
-      type="button"
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  ),
-);
-
-export const App: React.FC = () => {
+const App: React.FC = () => {
   return (
-    <div className="starter">
-      <Provider onClick={() => ({})}>
-        <TodoList />
-      </Provider>
+    <div className="App">
+      <div className="App__search-bar search-bar">
+        <SearchBar />
+      </div>
+      <div className="App_content">
+        <ReposList />
+        <div className="App_pages">
+          <Pages />
+        </div>
+      </div>
     </div>
   );
 };
+
+export default App;
