@@ -55,9 +55,6 @@ export const removeFromFavorites = (repoId: number): ReposAction => {
   return { type: ReposActionTypes.REMOVE_FROM_FAVORITES, payload: repoId };
 };
 
-export const changeStateRepos = (sortedRepos: GitRepo[]) => {
-  return {
-    type: ReposActionTypes.CHANGE_STATE_REPOS,
-    payload: sortedRepos,
-  };
+export const setPagesPerPage = (count: number): ReposAction => {
+  return { type: ReposActionTypes.SET_PER_PAGE, payload: count };
 };

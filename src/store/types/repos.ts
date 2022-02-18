@@ -22,7 +22,6 @@ export enum ReposActionTypes {
   SET_CURRENT_PAGE = 'SET_CURRENT_PAGE',
   SET_PER_PAGE = 'SET_PER_PAGE',
   SET_PAGES_COUNT = 'SET_PAGES_COUNT',
-  CHANGE_STATE_REPOS = 'CHANGE_STATE_REPOS',
 }
 
 export interface FetchReposAction {
@@ -74,11 +73,6 @@ export interface SetPagesCountAction {
   payload: Response,
 }
 
-export interface changeStateReposAction {
-  type: ReposActionTypes.CHANGE_STATE_REPOS,
-  payload: GitRepo[],
-}
-
 export type ReposAction =
   FetchReposAction
   | FetchReposSuccessAction
@@ -89,5 +83,4 @@ export type ReposAction =
   | RemoveFromFavoritesAction
   | SetCurrentPageAction
   | SetPerPageAction
-  | SetPagesCountAction
-  | changeStateReposAction;
+  | SetPagesCountAction;

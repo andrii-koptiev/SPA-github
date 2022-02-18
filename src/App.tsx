@@ -1,21 +1,47 @@
-import React from 'react';
-import './App.scss';
-import { Pages } from './components/Pages';
+import React, { useState } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { Repo } from './components/Repo';
 import { ReposList } from './components/ReposList';
-import { SearchBar } from './components/SearchBar';
+
+import './App.scss';
 
 const App: React.FC = () => {
+  const [loadList, setLoadList] = useState(false);
+
+  setTimeout(() => {
+    setLoadList(true);
+  }, 3000);
+
   return (
     <div className="App">
-      <div className="App__search-bar search-bar">
-        <SearchBar />
-      </div>
-      <div className="App_content">
-        <ReposList />
-        <div className="App_pages">
-          <Pages />
-        </div>
-      </div>
+      {!loadList
+        ? (
+          <div className="App__splashscreen">
+            Andrii Koptiev
+          </div>
+        )
+        : (
+          <div className="App_content">
+            <Routes>
+              <Route
+                path="/"
+                element={<ReposList />}
+              />
+              <Route
+                path="/:repoId"
+                element={<Repo />}
+              />
+              <Route
+                path="/home"
+                element={<Navigate to="/" />}
+              />
+              <Route
+                path="*"
+                element={<Navigate to="/" />}
+              />
+            </Routes>
+          </div>
+        )}
     </div>
   );
 };

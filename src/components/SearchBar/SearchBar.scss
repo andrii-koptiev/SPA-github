@@ -1,0 +1,29 @@
+$gap: 12px;
+$bottom-margin: 12px;
+
+.search-bar {
+  max-width: 800px;
+  margin-bottom: 16px;
+
+  &__search-form {
+    display: flex;
+    gap: $gap;
+    margin-bottom: $bottom-margin;
+  }
+
+  &__button-container {
+    display: flex;
+    gap: $gap;
+    justify-content: space-between;
+    margin-bottom: $bottom-margin;
+  }
+
+  &__sort-button {
+    width: 160px;
+  }
+
+  &__set-pages-form {
+    display: flex;
+    gap: $gap;
+  }
+}

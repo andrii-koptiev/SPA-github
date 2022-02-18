@@ -2,18 +2,22 @@ import React, { useState } from 'react';
 import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
 
+import './SearchBar.scss';
+
 export const SearchBar: React.FC = () => {
   const {
     setSearchQuery,
     setSortParam,
     setCurrentPage,
-    changeStateRepos,
+    setPagesPerPage,
   } = useActions();
-  const { repos } = useTypedSelector(state => state.repos);
+
+  const { perPage } = useTypedSelector(state => state.repos);
 
   const [inputValue, setInputValue] = useState('');
+  const [pagesValue, setPagesValue] = useState(perPage);
 
-  const handleSumbitForm = (event: React.FormEvent) => {
+  const handleSumbitSearchForm = (event: React.FormEvent) => {
     event.preventDefault();
     setCurrentPage(1);
 
@@ -22,18 +26,21 @@ export const SearchBar: React.FC = () => {
     setInputValue('');
   };
 
-  const sortByName = () => {
-    const sortedRepos = [...repos].sort((a, b) => a.name.localeCompare(b.name));
+  const handleSumbitPagesForm = (event: React.FormEvent) => {
+    event.preventDefault();
+    setCurrentPage(1);
 
-    changeStateRepos(sortedRepos);
+    setPagesPerPage(pagesValue);
+
+    setInputValue('');
   };
 
   return (
     <>
       <form
-        className="search-form"
+        className="search-bar__search-form"
         onSubmit={(event) => {
-          handleSumbitForm(event);
+          handleSumbitSearchForm(event);
         }}
       >
         <input
@@ -56,7 +63,7 @@ export const SearchBar: React.FC = () => {
       <div className="search-bar__button-container">
         <button
           type="button"
-          className="button search-bar__button"
+          className="button search-bar__sort-button"
           onClick={() => {
             setSortParam('updated');
           }}
@@ -65,7 +72,7 @@ export const SearchBar: React.FC = () => {
         </button>
         <button
           type="button"
-          className="button search-bar__button"
+          className="button search-bar__sort-button"
           onClick={() => {
             setSortParam('stars');
           }}
@@ -74,14 +81,37 @@ export const SearchBar: React.FC = () => {
         </button>
         <button
           type="button"
-          className="button search-bar__button"
+          className="button search-bar__sort-button"
           onClick={() => {
-            sortByName();
+            setSortParam('forks');
           }}
         >
-          Sort by Name
+          Sort by Forks
         </button>
       </div>
+      <form
+        className="search-bar__set-pages-form"
+        onSubmit={(event) => {
+          handleSumbitPagesForm(event);
+        }}
+      >
+        <input
+          className="input"
+          type="text"
+          placeholder="Items..."
+          value={pagesValue}
+          onChange={(event) => {
+            setPagesValue(Number(event.target.value));
+          }}
+          required
+        />
+        <button
+          type="submit"
+          className="button is-warning"
+        >
+          Show repos per page
+        </button>
+      </form>
     </>
   );
 };
